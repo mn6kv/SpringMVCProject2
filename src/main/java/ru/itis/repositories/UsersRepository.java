@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface UsersRepository extends CrudRepository<User> {
     List<User> findAll();
     Optional<User> findFirstByEmail(String email);
+    void saveSession(String sessionId);
+    void confirmUserWithCode(String code);
 }

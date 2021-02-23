@@ -28,21 +28,36 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
     private static final String SQL_SELECT_ALL = "select * from account";
 
     //language=SQL
-    private static final String SQL_INSERT_USER = "insert into account(email, name, password) values (?, ?, ?)";
+    private static final String SQL_INSERT_USER = "insert into account(email, name, password, sessionId, confirmCode) values (?, ?, ?, ?, ?)";
 
     //language=SQL
     private static final String SQL_FIND_ALL = "select * from account";
 
+    //language=SQL
+    private static final String SQL_CONFIRM = "update account set state 'CONFIRMED' where confirmCode = ?";
+
     private RowMapper<User> userRowMapper = (row, i) -> User.builder()
             .id(row.getLong("id"))
             .email(row.getString("email"))
-            .name(row.getString("first_name"))
+            .name(row.getString("name"))
             .password(row.getString("password"))
+            .sessionId(row.getString("sessionId"))
+            .confirmCode(row.getString("confirmCode"))
             .build();
 
     public UsersRepositoryJdbcImpl(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
         this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+    }
+
+    @Deprecated
+    @Override
+    public void saveSession(String sessionId) {
+    }
+
+    @Override
+    public void confirmUserWithCode(String code) {
+        jdbcTemplate.update(SQL_CONFIRM, code);
     }
 
     @Override
@@ -65,7 +80,13 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
 
     @Override
     public void save(User entity) {
-
+        //email, name, password, session, code
+        jdbcTemplate.update(SQL_INSERT_USER,
+                entity.getEmail(),
+                entity.getName(),
+                entity.getPassword(),
+                entity.getSessionId(),
+                entity.getConfirmCode());
     }
 
     @Override
