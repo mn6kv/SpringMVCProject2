@@ -16,5 +16,7 @@ D:\Ucheba\3Sem_Java\src\SpringMVCProject2\src\main\java\ru\itis\util\MailsGenera
 D:\Ucheba\3Sem_Java\src\SpringMVCProject2\src\main\java\ru\itis\config\LocalizationConfig.java
 D:\Ucheba\3Sem_Java\src\SpringMVCProject2\src\main\java\ru\itis\util\MailSender.java
 D:\Ucheba\3Sem_Java\src\SpringMVCProject2\src\main\java\ru\itis\config\ApplicationConfig.java
+D:\Ucheba\3Sem_Java\src\SpringMVCProject2\src\main\java\ru\itis\validation\PasswordValidator.java
+D:\Ucheba\3Sem_Java\src\SpringMVCProject2\src\main\java\ru\itis\validation\ValidPassword.java
 D:\Ucheba\3Sem_Java\src\SpringMVCProject2\src\main\java\ru\itis\models\User.java
 D:\Ucheba\3Sem_Java\src\SpringMVCProject2\src\main\java\ru\itis\config\MailsConfig.java

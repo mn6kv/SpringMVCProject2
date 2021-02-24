@@ -3,6 +3,7 @@ ru\itis\repositories\UsersRepository.class
 ru\itis\util\MailsGenerator.class
 ru\itis\config\ApplicationConfig.class
 ru\itis\controllers\SignUpController.class
+ru\itis\validation\ValidPassword.class
 ru\itis\util\MailSender.class
 ru\itis\config\ApplicationInitializer.class
 ru\itis\config\LocalizationConfig.class
@@ -21,4 +22,5 @@ ru\itis\dto\UserDto.class
 ru\itis\config\MailsConfig.class
 ru\itis\dto\UserForm.class
 ru\itis\util\MailsGeneratorFreemarkerImpl.class
+ru\itis\validation\PasswordValidator.class
 ru\itis\controllers\UsersController.class

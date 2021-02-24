@@ -1,0 +1,1 @@
+<h1>Check mail, we have post a confirm code</h1>
