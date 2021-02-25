@@ -20,11 +20,9 @@
 <h1><@spring.message 'sign_up_view.registration.title'/></h1>
 <@spring.bind "userForm"/>
 <form action="/signUp" method="post">
-<#--    <input type="email" name="email" placeholder="Email">-->
     <@spring.formInput "userForm.email" "placeholder=Email"/>
     <@spring.showErrors "<br>" "error"/>
-    <input type="text" name="name" placeholder="Name">
-<#--    <input type="password" name="password" placeholder="Password">-->
+    <input type="text" name="name" placeholder=<@spring.message 'sign_up_view.registration.name'/>>
     <@spring.formInput "userForm.password" "placeholder=Password"/>
     <@spring.showErrors "<br>" "error"/>
     <input type="submit">
