@@ -2,8 +2,8 @@ package ru.itis.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.itis.dto.UserDto;
 import ru.itis.dto.UserForm;
 import ru.itis.models.User;
@@ -16,6 +16,7 @@ import java.util.UUID;
 
 import static ru.itis.dto.UserDto.from;
 
+@Transactional
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -46,7 +47,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> getAllUsers(int page, int size) {
-        return from(usersRepository.findAll(page, size));
+        return from(usersRepository.findAll(/*page, size*/));
     }
 
     @Override
@@ -82,5 +83,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public void confirmUserWithCode(String code) {
         usersRepository.confirmUserWithCode(code);
+    }
+
+    @Override
+    public User signIn(UserForm userForm) {
+        User user = usersRepository.findUserByEmail(userForm.getEmail());
+        if (user.getPassword().equals(userForm.getPassword()) && user.getState() == User.State.CONFIRMED)
+            return user;
+        else return null;
     }
 }
