@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import ru.itis.models.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UsersRepository extends JpaRepository<User, Long> {
 
@@ -14,5 +15,11 @@ public interface UsersRepository extends JpaRepository<User, Long> {
     @Query("update User user set state = 'CONFIRMED' where user.confirmCode like concat('%', :code, '%') ")
     void confirmUserWithCode(@Param("code") String code);
 
+    @Modifying
+    @Query("update User user set role = 'USER' where user.confirmCode like concat('%', :code, '%') ")
+    void setRoleUserWithCode(@Param("code") String code);
+
     User findUserByEmail(String email);
+
+    Optional<User> findByEmail(String email);
 }

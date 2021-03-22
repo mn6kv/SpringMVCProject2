@@ -25,7 +25,7 @@ public class UserDto {
                 .id(user.getId())
                 .email(user.getEmail())
                 .name(user.getName())
-                .password(user.getPassword())
+                .password(user.getHashPassword())
                 .build();
     }
 

@@ -2,6 +2,7 @@ package ru.itis.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.itis.dto.UserDto;
@@ -35,6 +36,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     MailSender mailSender;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     private UsersRepository usersRepository;
     public UserServiceImpl(UsersRepository usersRepository) {
         this.usersRepository = usersRepository;
@@ -55,7 +59,7 @@ public class UserServiceImpl implements UserService {
         usersRepository.save(User.builder()
                 .email(userDto.getEmail())
                 .name(userDto.getName())
-                .password(userDto.getPassword())
+                .hashPassword(passwordEncoder.encode(userDto.getPassword()))
                 .build());
     }
     @Override
@@ -64,7 +68,7 @@ public class UserServiceImpl implements UserService {
         User user = User.builder()
                 .email(userForm.getEmail())
                 .name(userForm.getName())
-                .password(userForm.getPassword())
+                .hashPassword(passwordEncoder.encode(userForm.getPassword()))
                 .sessionId(sessionId)
                 .confirmCode(UUID.randomUUID().toString())
                 .build();
@@ -83,12 +87,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public void confirmUserWithCode(String code) {
         usersRepository.confirmUserWithCode(code);
+        usersRepository.setRoleUserWithCode(code);
     }
 
     @Override
     public User signIn(UserForm userForm) {
         User user = usersRepository.findUserByEmail(userForm.getEmail());
-        if (user.getPassword().equals(userForm.getPassword()) && user.getState() == User.State.CONFIRMED)
+        if (passwordEncoder.matches(userForm.getPassword(), user.getHashPassword())
+                && user.getState() == User.State.CONFIRMED)
             return user;
         else return null;
     }

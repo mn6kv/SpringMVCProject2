@@ -20,6 +20,7 @@
 <h1><@spring.message 'sign_up_view.registration.title'/></h1>
 <@spring.bind "userForm"/>
 <form action="/signUp" method="post">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
     <@spring.formInput "userForm.email" "placeholder=Email"/>
     <@spring.showErrors "<br>" "error"/>
     <input type="text" name="name" placeholder=<@spring.message 'sign_up_view.registration.name'/>>

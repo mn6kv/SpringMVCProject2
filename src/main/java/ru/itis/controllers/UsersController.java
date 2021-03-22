@@ -6,9 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import ru.itis.services.UserService;
 
-@Controller
+@RestController
 public class UsersController {
 
     @Autowired
@@ -23,4 +24,6 @@ public class UsersController {
         else model.addAttribute("users", userService.getAllUsers());
         return "users_view";
     }
+
+//    @RequestMapping(value = "/users", method = )
 }
