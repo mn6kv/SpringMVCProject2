@@ -15,7 +15,7 @@ public class UserDto {
     private long id;
     private String email;
     private String name;
-    private String password;
+    private String hashPassword;
 
     public static UserDto from(User user) {
         if (user == null) {
@@ -25,7 +25,7 @@ public class UserDto {
                 .id(user.getId())
                 .email(user.getEmail())
                 .name(user.getName())
-                .password(user.getHashPassword())
+                .hashPassword(user.getHashPassword())
                 .build();
     }
 

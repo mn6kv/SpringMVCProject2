@@ -13,6 +13,7 @@ import ru.itis.util.MailSender;
 import ru.itis.util.MailsGenerator;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static ru.itis.dto.UserDto.from;
@@ -59,7 +60,7 @@ public class UserServiceImpl implements UserService {
         usersRepository.save(User.builder()
                 .email(userDto.getEmail())
                 .name(userDto.getName())
-                .hashPassword(passwordEncoder.encode(userDto.getPassword()))
+                .hashPassword(passwordEncoder.encode(userDto.getHashPassword()))
                 .build());
     }
     @Override
@@ -88,6 +89,24 @@ public class UserServiceImpl implements UserService {
     public void confirmUserWithCode(String code) {
         usersRepository.confirmUserWithCode(code);
         usersRepository.setRoleUserWithCode(code);
+    }
+
+    @Override
+    public boolean updateUser(Long id, UserDto newUser) {
+        Optional<User> userOptional = usersRepository.findById(id);
+
+        if (userOptional.isPresent()) {
+            User oldUser = userOptional.get();
+            oldUser.setEmail(newUser.getEmail());
+            oldUser.setName(newUser.getName());
+            oldUser.setHashPassword(newUser.getHashPassword());
+            return true;
+        } else return false;
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        usersRepository.deleteById(id);
     }
 
     @Override

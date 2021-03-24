@@ -13,14 +13,14 @@ D:\Mihan\Repo\SpringMVCProject2\src\main\java\ru\itis\config\LocalizationConfig.
 D:\Mihan\Repo\SpringMVCProject2\src\main\java\ru\itis\controllers\UsersController.java
 D:\Mihan\Repo\SpringMVCProject2\src\main\java\ru\itis\models\User.java
 D:\Mihan\Repo\SpringMVCProject2\src\main\java\ru\itis\config\security\details\UserDetailsServiceImpl.java
+D:\Mihan\Repo\SpringMVCProject2\src\main\java\ru\itis\config\security\config\SecurityWebApplicationInitializer.java
 D:\Mihan\Repo\SpringMVCProject2\src\main\java\ru\itis\services\UserService.java
 D:\Mihan\Repo\SpringMVCProject2\src\main\java\ru\itis\util\MailsSenderDevelopImpl.java
 D:\Mihan\Repo\SpringMVCProject2\src\main\java\ru\itis\dto\UserForm.java
 D:\Mihan\Repo\SpringMVCProject2\src\main\java\ru\itis\services\UserServiceImpl.java
-D:\Mihan\Repo\SpringMVCProject2\src\main\java\ru\itis\config\security\SecurityConfig.java
 D:\Mihan\Repo\SpringMVCProject2\src\main\java\ru\itis\validation\PasswordValidator.java
-D:\Mihan\Repo\SpringMVCProject2\src\main\java\ru\itis\config\security\SecurityWebApplicationInitializer.java
 D:\Mihan\Repo\SpringMVCProject2\src\main\java\ru\itis\repositories\UsersRepository.java
+D:\Mihan\Repo\SpringMVCProject2\src\main\java\ru\itis\config\security\config\SecurityConfig.java
 D:\Mihan\Repo\SpringMVCProject2\src\main\java\ru\itis\util\MailsGeneratorFreemarkerImpl.java
 D:\Mihan\Repo\SpringMVCProject2\src\main\java\ru\itis\config\ApplicationInitializer.java
 D:\Mihan\Repo\SpringMVCProject2\src\main\java\ru\itis\config\security\details\UserDetailsImpl.java

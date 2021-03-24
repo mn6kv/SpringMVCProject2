@@ -13,5 +13,7 @@ public interface UserService {
     void addUser(UserForm userForm, String sessionId);
     UserDto getUser(Long userId);
     void confirmUserWithCode(String code);
+    boolean updateUser(Long id, UserDto user);
+    void deleteUser(Long id);
     User signIn(UserForm userForm);
 }

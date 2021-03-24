@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.management.relation.Role;
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Builder
@@ -14,7 +15,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "account")
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

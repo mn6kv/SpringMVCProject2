@@ -1,6 +1,7 @@
 ru\itis\services\UserServiceImpl.class
 ru\itis\repositories\UsersRepository.class
 ru\itis\util\MailsGenerator.class
+ru\itis\config\security\config\SecurityWebApplicationInitializer.class
 ru\itis\config\ApplicationConfig.class
 ru\itis\controllers\SignInController.class
 ru\itis\controllers\ProfileController.class
@@ -14,7 +15,6 @@ ru\itis\config\security\details\UserDetailsServiceImpl.class
 ru\itis\dto\UserDto$UserDtoBuilder.class
 ru\itis\models\User.class
 ru\itis\controllers\ConfirmController.class
-ru\itis\config\security\SecurityConfig.class
 ru\itis\models\User$State.class
 ru\itis\services\UserService.class
 ru\itis\util\MailsSenderDevelopImpl.class
@@ -25,8 +25,8 @@ ru\itis\dto\UserDto.class
 ru\itis\config\security\details\UserDetailsImpl.class
 ru\itis\config\MailsConfig.class
 ru\itis\dto\UserForm.class
+ru\itis\config\security\config\SecurityConfig.class
 ru\itis\util\MailsGeneratorFreemarkerImpl.class
 ru\itis\models\User$Role.class
 ru\itis\validation\PasswordValidator.class
-ru\itis\config\security\SecurityWebApplicationInitializer.class
 ru\itis\controllers\UsersController.class
