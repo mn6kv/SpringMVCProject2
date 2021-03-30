@@ -4,6 +4,7 @@ ru\itis\util\MailsGenerator.class
 ru\itis\config\security\config\SecurityWebApplicationInitializer.class
 ru\itis\config\ApplicationConfig.class
 ru\itis\controllers\SignInController.class
+ru\itis\config\SessionConfig.class
 ru\itis\controllers\ProfileController.class
 ru\itis\controllers\SignUpController.class
 ru\itis\models\Session.class
