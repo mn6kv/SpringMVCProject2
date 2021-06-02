@@ -12,4 +12,6 @@ public interface UserService {
     void addUser(UserForm userForm, String sessionId);
     UserDto getUser(Long userId);
     void confirmUserWithCode(String code);
+
+    boolean signIn(UserForm userForm);
 }

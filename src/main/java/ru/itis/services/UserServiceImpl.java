@@ -2,21 +2,24 @@ package ru.itis.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.itis.dto.UserDto;
 import ru.itis.dto.UserForm;
 import ru.itis.models.User;
-import ru.itis.repositories.UsersRepository;
+import ru.itis.repositories.jpa.UsersRepositoryJpa;
 import ru.itis.util.MailSender;
 import ru.itis.util.MailsGenerator;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static ru.itis.dto.UserDto.from;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     @Value("${server.url}")
@@ -34,10 +37,19 @@ public class UserServiceImpl implements UserService {
     @Autowired
     MailSender mailSender;
 
-    private UsersRepository usersRepository;
-    public UserServiceImpl(UsersRepository usersRepository) {
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+    private UsersRepositoryJpa usersRepository;
+
+    public UserServiceImpl(UsersRepositoryJpa usersRepository) {
         this.usersRepository = usersRepository;
     }
+
+//    private UsersRepository usersRepository;
+//    public UserServiceImpl(UsersRepository usersRepository) {
+//        this.usersRepository = usersRepository;
+//    }
 
     @Override
     public List<UserDto> getAllUsers() {
@@ -46,7 +58,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> getAllUsers(int page, int size) {
-        return from(usersRepository.findAll(page, size));
+        return from(usersRepository.findAllWithLimitOffset(page, size));
     }
 
     @Override
@@ -54,7 +66,9 @@ public class UserServiceImpl implements UserService {
         usersRepository.save(User.builder()
                 .email(userDto.getEmail())
                 .name(userDto.getName())
-                .password(userDto.getPassword())
+                .password(passwordEncoder.encode(userDto.getPassword()))
+                .confirmCode(UUID.randomUUID().toString())
+                .state(User.State.NOT_CONFIRMED)
                 .build());
     }
     @Override
@@ -63,9 +77,10 @@ public class UserServiceImpl implements UserService {
         User user = User.builder()
                 .email(userForm.getEmail())
                 .name(userForm.getName())
-                .password(userForm.getPassword())
+                .password(passwordEncoder.encode(userForm.getPassword()))
                 .sessionId(sessionId)
                 .confirmCode(UUID.randomUUID().toString())
+                .state(User.State.NOT_CONFIRMED)
                 .build();
 
         usersRepository.save(user);
@@ -82,5 +97,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public void confirmUserWithCode(String code) {
         usersRepository.confirmUserWithCode(code);
+    }
+
+    @Override
+    public boolean signIn(UserForm userForm) {
+        Optional<User> userOptional = usersRepository.findByEmail(userForm.getEmail());
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            System.out.println(user.getState());
+            if (passwordEncoder.matches(passwordEncoder.encode(userForm.getPassword()), user.getPassword()) &&
+                user.getState() == User.State.CONFIRMED)
+                return true;
+            else return false;
+        } else return false;
     }
 }
